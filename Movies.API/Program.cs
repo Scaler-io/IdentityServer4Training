@@ -1,4 +1,7 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Movies.API.Configurations;
 using Movies.API.DataAccess;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +13,20 @@ builder.Services.AddDbContext<MovieContext>(options =>
 {
     options.UseInMemoryDatabase("Movie");
 });
+
+var identityGroupAccess = builder.Configuration
+    .GetSection("IdentityGroupAccess")
+    .Get<IdentityGroupAccess>();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+    {
+        options.Authority = identityGroupAccess.Authority;
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateAudience = false
+        };
+    });
 
 var app = builder.Build();
 var serviceProvider = app.Services;
@@ -28,6 +45,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
