@@ -12,8 +12,8 @@ namespace IdentityServer.DependencyInjections
                .AddInMemoryIdentityResources(IdentityConfig.IdentityResources)
                .AddInMemoryClients(IdentityConfig.Clients(clientSettings))
                .AddTestUsers(IdentityConfig.TestUsers)
-               .AddInMemoryApiScopes(IdentityConfig.ApiScopes)
                .AddInMemoryApiResources(IdentityConfig.ApiResources)
+               .AddInMemoryApiScopes(IdentityConfig.ApiScopes)
                .AddDeveloperSigningCredential();
             return services;
         }

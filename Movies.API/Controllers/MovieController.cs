@@ -12,15 +12,18 @@ namespace Movies.API.Controllers
     public class MovieController : ControllerBase
     {
         private readonly MovieContext _context;
+        private readonly ILogger<MovieController> _logger;
 
-        public MovieController(MovieContext movieContext)
+        public MovieController(MovieContext movieContext, ILogger<MovieController> logger)
         {
             _context = movieContext;
+            _logger = logger;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Movie>>> GetMovie()
         {
+            _logger.LogInformation("User details {@claims}", User.Claims);
             return await _context.Movies.ToListAsync();
         }
 

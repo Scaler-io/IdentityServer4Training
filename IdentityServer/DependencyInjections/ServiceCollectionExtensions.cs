@@ -1,6 +1,4 @@
-﻿using IdentityServer.Configurations.Client;
-
-namespace IdentityServer.DependencyInjections
+﻿namespace IdentityServer.DependencyInjections
 {
     public static class ServiceCollectionExtensions
     {
@@ -8,7 +6,15 @@ namespace IdentityServer.DependencyInjections
         {
             var logger = Logging.GetLogger(configuration);
             services.AddSingleton(x => logger);
-            services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("DevCorsPolicy", policy =>
+                {
+                    policy.WithOrigins("https://localhost:4200").AllowAnyHeader().AllowAnyMethod() ;
+                });
+            });
+
+            services.AddControllersWithViews();
             return services;
         }
     }

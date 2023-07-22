@@ -2,6 +2,6 @@
 {
     public class ClientSettings
     {
-        public MovieApiSettings MovieApiSettings { get; set; }
+        public MovieAppClient MovieAppClient { get; set; }
     }
 }

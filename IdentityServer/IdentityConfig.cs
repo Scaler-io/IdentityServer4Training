@@ -16,32 +16,41 @@ namespace IdentityServer
             {
                 new Client
                 {
-                    ClientId = settings.MovieApiSettings.ClientId,
-                    AllowedGrantTypes = GrantTypes.ResourceOwnerPasswordAndClientCredentials,
+                    ClientName = settings.MovieAppClient.ClientName,
+                    ClientId = settings.MovieAppClient.ClientId,
+                    AllowedGrantTypes = GrantTypes.Code,
                     ClientSecrets =
                     {
-                        new Secret(settings.MovieApiSettings.ClientSecret.Sha512())
+                        new Secret(settings.MovieAppClient.ClientSecret.Sha512())
                     },
                     AllowedScopes =
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
-                        ApprovedScopes.MovieApi.ToString()
-                    }
+                        IdentityServerConstants.StandardScopes.Profile
+                    },
+                    RequireConsent = false,
+                    RequirePkce = true,
+                    RedirectUris = new List<string> { settings.MovieAppClient.RedirectUris },
+                    RequireClientSecret = false,
+                    AccessTokenType = AccessTokenType.Jwt,
                 }
             };
         }
-            
 
-        public static IEnumerable<ApiScope> ApiScopes => 
-            new ApiScope[] 
-            { 
+
+        public static IEnumerable<ApiScope> ApiScopes =>
+            new ApiScope[]
+            {
                 new ApiScope(ApprovedScopes.MovieApi.ToString(), ScopeName.MovieApi)
             };
 
         public static IEnumerable<ApiResource> ApiResources =>
             new ApiResource[]
             {
-
+                new ApiResource("movieApi", "Movie Api")
+                {
+                    Scopes = { ApprovedScopes.MovieApi.ToString() }
+                }
             };
 
         public static IEnumerable<IdentityResource> IdentityResources =>
@@ -63,7 +72,7 @@ namespace IdentityServer
                     {
                         new Claim("given_name", "Frank"),
                         new Claim("family_name", "Ozz")
-                    } 
+                    },
                 },
                 new TestUser
                 {

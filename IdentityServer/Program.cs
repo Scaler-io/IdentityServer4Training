@@ -1,5 +1,4 @@
 using IdentityServer.DependencyInjections;
-using IdentityServer.Models.Enums;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -10,25 +9,20 @@ services.AddApplicationServices(configuartion)
 
 var app = builder.Build();
 
-app.MapGet("/", () =>
-{
-    using (var scope = app.Services.CreateScope())
-    {
-        var service = scope.ServiceProvider;
-        var logger = service.GetRequiredService<Serilog.ILogger>();
+app.UseStaticFiles();
 
-        var c = ApprovedScopes.MovieApi;
+app.UseHttpsRedirection();
 
-        logger.Information("logger working {@scope}", c);
-        return "Hello World!";
-    }
-});
+app.UseCors("DevCorsPolicy");
+
+app.UseRouting();
 
 app.UseIdentityServer();
 
-app.UseCors(policy =>
+app.UseAuthorization();
+app.UseEndpoints(endpoints =>
 {
-    policy.AllowAnyOrigin();
+    endpoints.MapDefaultControllerRoute();
 });
 
 app.Run();

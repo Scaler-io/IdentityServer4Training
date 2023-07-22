@@ -1,6 +1,6 @@
 ﻿namespace IdentityServer.Configurations.Client
 {
-    public class MovieApiSettings: BaseClientSettings
+    public class MovieAppClient : BaseClientSettings
     {
     }
 }

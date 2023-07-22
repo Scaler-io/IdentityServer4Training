@@ -21,6 +21,8 @@ var identityGroupAccess = builder.Configuration
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
     {
+        options.RequireHttpsMetadata = false;
+        options.Audience = identityGroupAccess.Audience;
         options.Authority = identityGroupAccess.Authority;
         options.TokenValidationParameters = new TokenValidationParameters
         {
