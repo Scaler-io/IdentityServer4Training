@@ -1,7 +1,11 @@
-﻿namespace IdentityServer.Models.Enums
+﻿using System.Runtime.Serialization;
+
+namespace IdentityServer.Models.Enums
 {
     public enum ApprovedScopes
     {
-        MovieApi
+        MovieApi,
+        [EnumMember(Value = "roles")]
+        Roles
     }
 }

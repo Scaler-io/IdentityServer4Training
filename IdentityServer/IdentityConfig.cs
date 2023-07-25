@@ -1,4 +1,5 @@
 ﻿using IdentityServer.Configurations.Client;
+using IdentityServer.Extensions;
 using IdentityServer.Models.Constants;
 using IdentityServer.Models.Enums;
 using IdentityServer4;
@@ -18,19 +19,22 @@ namespace IdentityServer
                 {
                     ClientName = settings.MovieAppClient.ClientName,
                     ClientId = settings.MovieAppClient.ClientId,
-                    AllowedGrantTypes = GrantTypes.Code,
+                    AllowedGrantTypes = GrantTypes.CodeAndClientCredentials,
                     ClientSecrets =
                     {
                         new Secret(settings.MovieAppClient.ClientSecret.Sha512())
                     },
                     AllowedScopes =
                     {
+                        ApprovedScopes.MovieApi.ToString(),
                         IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.Address,
+                        ApprovedScopes.Roles.GetEnumMemberAttributeValue()
                     },
-                    RequireConsent = false,
                     RequirePkce = true,
                     RedirectUris = new List<string> { settings.MovieAppClient.RedirectUris },
+                    PostLogoutRedirectUris = new List<string> { settings.MovieAppClient.RedirectUris },
                     RequireClientSecret = false,
                     AccessTokenType = AccessTokenType.Jwt,
                 }
@@ -57,7 +61,9 @@ namespace IdentityServer
             new IdentityResource[]
             {
                 new IdentityResources.OpenId(),
-                new IdentityResources.Profile()
+                new IdentityResources.Profile(),
+                new IdentityResources.Address(),
+                new IdentityResource("roles", "User role(s)", new List<string>{ "role" })
             };
 
         public static List<TestUser> TestUsers =>
@@ -71,7 +77,9 @@ namespace IdentityServer
                     Claims = new List<Claim>
                     {
                         new Claim("given_name", "Frank"),
-                        new Claim("family_name", "Ozz")
+                        new Claim("family_name", "Ozz"),
+                        new Claim("address", "132 sample road, India"),
+                        new Claim("role", UserRoles.Admin.ToString())
                     },
                 },
                 new TestUser
@@ -82,7 +90,8 @@ namespace IdentityServer
                     Claims = new List<Claim>
                     {
                         new Claim("given_name", "Seros"),
-                        new Claim("family_name", "Ozz")
+                        new Claim("family_name", "Ozz"),
+                        new Claim("role", UserRoles.Viewer.ToString())
                     }
                 }
             };
