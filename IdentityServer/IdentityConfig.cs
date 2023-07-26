@@ -45,7 +45,8 @@ namespace IdentityServer
         public static IEnumerable<ApiScope> ApiScopes =>
             new ApiScope[]
             {
-                new ApiScope(ApprovedScopes.MovieApi.ToString(), ScopeName.MovieApi)
+                new ApiScope(ApprovedScopes.MovieApi.ToString(), ScopeName.MovieApi),
+                new ApiScope(ApprovedScopes.JobApi.ToString(), ScopeName.JobApi)
             };
 
         public static IEnumerable<ApiResource> ApiResources =>
@@ -54,6 +55,10 @@ namespace IdentityServer
                 new ApiResource("movieApi", "Movie Api")
                 {
                     Scopes = { ApprovedScopes.MovieApi.ToString() }
+                },
+                new ApiResource("jobApi", "Movie Api")
+                {
+                    Scopes = { ApprovedScopes.JobApi.ToString() }
                 }
             };
 
