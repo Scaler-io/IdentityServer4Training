@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  identityDatabase:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+
+volumes:
+  identity_database:

@@ -1,12 +1,16 @@
 @model LoginViewModel
 
+@section cssFile{
+    <link rel="stylesheet" href="~/css/feature/account/login.css" />
+}
+
 <div class="login-page">
     <div class="lead">
         <h1>Login</h1>
         <p>Choose how to login</p>
     </div>
 
-    <partial name="_ValidationSummary" />
+    @* <partial name="_ValidationSummary" /> *@
 
     <div class="row">
 
@@ -20,15 +24,17 @@
 
                     <div class="card-body">
                         <form asp-route="Login">
-                            <input type="hidden" asp-for="ReturnUrl" />
+                            <input type="hidden" asp-for="ReturnUrl" value="@Context.Request.Query["returnUrl"]" />
 
                             <div class="form-group">
                                 <label asp-for="Username"></label>
                                 <input class="form-control" placeholder="Username" asp-for="Username" autofocus>
+                                <label class="validation-error">@Html.ValidationMessage("Username")</label>
                             </div>
                             <div class="form-group">
                                 <label asp-for="Password"></label>
                                 <input type="password" class="form-control" placeholder="Password" asp-for="Password" autocomplete="off">
+                                <label class="validation-error">@Html.ValidationMessage("Password")</label>
                             </div>
                             @if (Model.AllowRememberLogin)
                             {
@@ -36,7 +42,7 @@
                                     <div class="form-check">
                                         <input class="form-check-input" asp-for="RememberLogin">
                                         <label class="form-check-label" asp-for="RememberLogin">
-                                            Remember My Login
+                                            Remember me
                                         </label>
                                     </div>
                                 </div>

@@ -1,4 +1,5 @@
 using IdentityServer.DependencyInjections;
+using IdentityServer.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -25,4 +26,6 @@ app.UseEndpoints(endpoints =>
     endpoints.MapDefaultControllerRoute();
 });
 
-app.Run();
+app
+.MigrateDb(configuartion)
+.Run();

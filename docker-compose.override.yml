@@ -1,0 +1,13 @@
+version: '3.4'
+
+services:
+  identityDatabase:
+    container_name: identityDatabase
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=P@ssw0rd
+      - MSSQL_PID=Express
+    ports:
+      - 1435:1433
+    volumes:
+      - identity_database:/var/opt/mssql

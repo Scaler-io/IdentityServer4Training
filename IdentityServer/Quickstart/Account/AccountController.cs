@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using ILogger = Serilog.ILogger;
 
 namespace IdentityServerHost.Quickstart.UI
 {
@@ -34,12 +35,14 @@ namespace IdentityServerHost.Quickstart.UI
         private readonly IClientStore _clientStore;
         private readonly IAuthenticationSchemeProvider _schemeProvider;
         private readonly IEventService _events;
+        private readonly ILogger _logger;
 
         public AccountController(
             IIdentityServerInteractionService interaction,
             IClientStore clientStore,
             IAuthenticationSchemeProvider schemeProvider,
             IEventService events,
+            ILogger logger,
             TestUserStore users = null)
         {
             // if the TestUserStore is not in DI, then we'll just use the global users collection
@@ -50,6 +53,7 @@ namespace IdentityServerHost.Quickstart.UI
             _clientStore = clientStore;
             _schemeProvider = schemeProvider;
             _events = events;
+            _logger = logger;
         }
 
         /// <summary>
@@ -95,6 +99,7 @@ namespace IdentityServerHost.Quickstart.UI
                     {
                         // The client is native, so this change in how to
                         // return the response is for better UX for the end user.
+                        _logger.Information("redierct url {@redirectUrl}", model.ReturnUrl);
                         return this.LoadingPage("Redirect", model.ReturnUrl);
                     }
 
@@ -164,8 +169,8 @@ namespace IdentityServerHost.Quickstart.UI
                     }
                 }
 
-                await _events.RaiseAsync(new UserLoginFailureEvent(model.Username, "invalid credentials", clientId:context?.Client.ClientId));
-                ModelState.AddModelError(string.Empty, AccountOptions.InvalidCredentialsErrorMessage);
+                await _events.RaiseAsync(new UserLoginFailureEvent(model.Username, "invalid credentials", clientId: context?.Client.ClientId));
+                ModelState.AddModelError("Username", AccountOptions.InvalidCredentialsErrorMessage);
             }
 
             // something went wrong, show form with error
@@ -173,7 +178,7 @@ namespace IdentityServerHost.Quickstart.UI
             return View(vm);
         }
 
-        
+
         /// <summary>
         /// Show logout page
         /// </summary>

@@ -1,0 +1,127 @@
+/* Material finish styles for the login page */
+.login-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f0f0f0; /* Replace with your desired background color */
+}
+
+.lead {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 16px;
+  color: #888888; /* Replace with your desired text color */
+}
+
+.card {
+  background-color: #ffffff; /* White background for cards */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Mat shadow for cards */
+  border-radius: 4px;
+  margin: 10px;
+  padding: 20px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.card-header {
+  border-bottom: 1px solid #dddddd; /* Replace with your desired border color */
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.card-header h2 {
+  font-size: 24px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.form-check {
+  display: flex;
+  align-items: center;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #dddddd; /* Replace with your desired border color */
+  border-radius: 4px;
+  background-color: #ffffff; /* White background for input fields */
+}
+
+.form-control:focus {
+  outline: none;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2); /* Focus shadow for input fields */
+}
+
+.form-check-label {
+  font-size: 13px;
+  margin-top: 5px;
+  margin-left: 10px;
+}
+
+.btn {
+  cursor: pointer;
+  font-size: 16px;
+  padding: 10px 20px;
+  border-radius: 4px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.btn-primary {
+  background-color: #007bff; /* Replace with your desired primary button color */
+  color: #ffffff; /* Replace with your desired button text color */
+  border: none;
+}
+
+.btn-secondary {
+  background-color: #6c757d; /* Replace with your desired secondary button color */
+  color: #ffffff; /* Replace with your desired button text color */
+  border: none;
+}
+
+.btn:hover {
+  opacity: 0.8; /* Button opacity on hover */
+}
+
+.list-inline {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.list-inline-item {
+  margin: 10px;
+}
+
+.alert {
+  padding: 20px;
+  font-size: 16px;
+  border-radius: 4px;
+}
+
+.alert-warning {
+  background-color: #f8d7da; /* Replace with your desired warning alert color */
+  color: #721c24; /* Replace with your desired warning alert text color */
+  border: 1px solid #f5c6cb; /* Replace with your desired warning alert border color */
+}

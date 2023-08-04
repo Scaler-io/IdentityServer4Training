@@ -1,6 +1,12 @@
-.body-container {
-  margin-top: 60px;
-  padding-bottom: 40px;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: #fff; /* Replace with your desired background color */
 }
 
 .welcome-page li {
@@ -29,3 +35,101 @@
 .grants-page .card label {
   font-weight: bold;
 }
+
+/* Material design styles for the error section */
+.alert {
+  padding: 20px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f44336; /* Red background color for error */
+  color: #ffffff; /* White text color for error */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Initial material shadow */
+  animation: floatUpDown 3s infinite alternate; /* Floating animation */
+  transition: box-shadow 0.2s; /* Shadow transition on hover */
+  cursor: pointer; /* Show pointer cursor on hover */
+}
+
+.alert strong {
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+.alert .danger {
+  flex: 1;
+  font-size: 16px;
+}
+
+.alert .danger ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.alert .danger li {
+  margin-bottom: 5px;
+}
+
+/* Keyframe animation for floating up and down */
+@keyframes floatUpDown {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Shadow change on floating up */
+.alert:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Material shadow on hover */
+  transform: translateY(-5px); /* Lift the alert slightly on hover */
+}
+
+.validation-error {
+  font-size: 13px;
+  font-weight: bold;
+  color: tomato;
+  margin-top: 10px;
+}
+
+.logged-out-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.logged-out-page h1 {
+  font-size: 36px;
+  margin-bottom: 10px;
+  color: #333333; /* Replace with your desired heading color */
+}
+
+.logged-out-page h1 small {
+  font-size: 16px;
+  color: #888888; /* Replace with your desired subheading color */
+}
+
+a.PostLogoutRedirectUri {
+  color: #007bff; /* Replace with your desired link color */
+  text-decoration: none;
+}
+
+a.PostLogoutRedirectUri:hover {
+  text-decoration: underline;
+}
+
+.logged-out-page > div {
+  font-size: 18px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.logged-out-page .signout {
+  display: none; /* Hide the iframe by default */
+}
+
+

@@ -14,6 +14,15 @@ builder.Services.AddDbContext<MovieContext>(options =>
     options.UseInMemoryDatabase("Movie");
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("DevCorsPolicy", policy =>
+    {
+        policy.WithOrigins("https://localhost:4200").AllowAnyHeader().AllowAnyMethod();
+    });
+});
+
+
 var identityGroupAccess = builder.Configuration
     .GetSection("IdentityGroupAccess")
     .Get<IdentityGroupAccess>();
@@ -47,6 +56,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("DevCorsPolicy");
 
 app.UseAuthentication();
 

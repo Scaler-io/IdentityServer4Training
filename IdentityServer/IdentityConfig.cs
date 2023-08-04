@@ -33,7 +33,7 @@ namespace IdentityServer
                         ApprovedScopes.Roles.GetEnumMemberAttributeValue()
                     },
                     RequirePkce = true,
-                    RedirectUris = new List<string> { settings.MovieAppClient.RedirectUris },
+                    RedirectUris = new List<string> { settings.MovieAppClient.RedirectUris, "https://localhost:4200/movies" },
                     PostLogoutRedirectUris = new List<string> { settings.MovieAppClient.RedirectUris },
                     RequireClientSecret = false,
                     AccessTokenType = AccessTokenType.Jwt,

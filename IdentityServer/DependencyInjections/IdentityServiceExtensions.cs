@@ -1,4 +1,6 @@
-﻿using IdentityServer.Configurations.Client;
+﻿using System.Reflection;
+using IdentityServer.Configurations.Client;
+using Microsoft.EntityFrameworkCore;
 
 namespace IdentityServer.DependencyInjections
 {
@@ -8,13 +10,28 @@ namespace IdentityServer.DependencyInjections
         {
             var clientSettings = configuration.GetSection("ClientSettings").Get<ClientSettings>();
 
-            services.AddIdentityServer()
-               .AddInMemoryIdentityResources(IdentityConfig.IdentityResources)
-               .AddInMemoryClients(IdentityConfig.Clients(clientSettings))
-               .AddTestUsers(IdentityConfig.TestUsers)
-               .AddInMemoryApiResources(IdentityConfig.ApiResources)
-               .AddInMemoryApiScopes(IdentityConfig.ApiScopes)
-               .AddDeveloperSigningCredential();
+            var builder = services.AddIdentityServer(options =>
+            {
+                options.EmitStaticAudienceClaim = true;
+            })
+            .AddTestUsers(IdentityConfig.TestUsers)
+            .AddConfigurationStore(options =>
+            {
+                options.ConfigureDbContext = c =>
+                c.UseSqlServer(
+                    configuration.GetConnectionString("IdentityServer"),
+                    sql => sql.MigrationsAssembly(Assembly.GetExecutingAssembly().GetName().ToString())
+                );
+            })
+            .AddOperationalStore(options =>
+            {
+                options.ConfigureDbContext = o =>
+                o.UseSqlServer(
+                    configuration.GetConnectionString("IdentityServer"),
+                    sql => sql.MigrationsAssembly(Assembly.GetExecutingAssembly().GetName().ToString())
+                );
+            })
+            .AddDeveloperSigningCredential();
             return services;
         }
     }
