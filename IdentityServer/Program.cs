@@ -6,6 +6,7 @@ var services = builder.Services;
 var configuartion = builder.Configuration;
 
 services.AddApplicationServices(configuartion)
+    .AddDatabaseServices(configuartion)
     .AddIdentityServices(configuartion);
 
 var app = builder.Build();

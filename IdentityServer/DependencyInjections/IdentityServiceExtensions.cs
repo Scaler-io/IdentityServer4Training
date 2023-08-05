@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using IdentityServer.Configurations.Client;
+using IdentityServer.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace IdentityServer.DependencyInjections
@@ -14,7 +15,6 @@ namespace IdentityServer.DependencyInjections
             {
                 options.EmitStaticAudienceClaim = true;
             })
-            .AddTestUsers(IdentityConfig.TestUsers)
             .AddConfigurationStore(options =>
             {
                 options.ConfigureDbContext = c =>
@@ -31,6 +31,7 @@ namespace IdentityServer.DependencyInjections
                     sql => sql.MigrationsAssembly(Assembly.GetExecutingAssembly().GetName().ToString())
                 );
             })
+            .AddAspNetIdentity<User>()
             .AddDeveloperSigningCredential();
             return services;
         }

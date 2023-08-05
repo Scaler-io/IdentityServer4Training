@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using IdentityServer.Configurations.Client;
+using IdentityServer.DataAccess;
 using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Mappers;
 using Microsoft.EntityFrameworkCore;
@@ -54,6 +55,11 @@ namespace IdentityServer.Extensions
                         logger.Error("error migrating database {@stack}", e.StackTrace);
                         throw;
                     }
+                }
+
+                using (var context = scope.ServiceProvider.GetRequiredService<UserContext>())
+                {
+                    context.Database.Migrate();
                 }
             }
 
