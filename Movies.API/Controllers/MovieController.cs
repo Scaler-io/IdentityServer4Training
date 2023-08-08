@@ -3,12 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Movies.API.DataAccess;
 using Movies.API.Entity;
+using Movies.API.Filters;
 
 namespace Movies.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
     public class MovieController : ControllerBase
     {
         private readonly MovieContext _context;
@@ -21,6 +21,7 @@ namespace Movies.API.Controllers
         }
 
         [HttpGet]
+        [AccessPermission("Admin")]
         public async Task<ActionResult<IEnumerable<Movie>>> GetMovie()
         {
             _logger.LogInformation("User details {@claims}", User.Claims);

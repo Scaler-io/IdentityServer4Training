@@ -1,3 +1,4 @@
+using IdentityServer.DataAccess;
 using IdentityServer.DependencyInjections;
 using IdentityServer.Extensions;
 
@@ -8,6 +9,7 @@ var configuartion = builder.Configuration;
 services.AddApplicationServices(configuartion)
     .AddDatabaseServices(configuartion)
     .AddIdentityServices(configuartion);
+
 
 var app = builder.Build();
 
@@ -27,6 +29,7 @@ app.UseEndpoints(endpoints =>
     endpoints.MapDefaultControllerRoute();
 });
 
-app
-.MigrateDb(configuartion)
-.Run();
+app.MigrateDb(configuartion);
+
+UserSeeder.Seed(app.Services);
+app.Run();

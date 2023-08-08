@@ -14,7 +14,11 @@ namespace IdentityServer.DependencyInjections
                 options.UseSqlServer(configuration.GetConnectionString("IdentityUserServer"));
             });
 
-            services.AddIdentity<User, IdentityRole>()
+            services.AddIdentity<User, IdentityRole>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequireNonAlphanumeric = false;
+            })
             .AddEntityFrameworkStores<UserContext>()
             .AddDefaultTokenProviders();
 

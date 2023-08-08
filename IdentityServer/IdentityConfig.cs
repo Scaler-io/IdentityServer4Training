@@ -54,7 +54,8 @@ namespace IdentityServer
             {
                 new ApiResource("movieApi", "Movie Api")
                 {
-                    Scopes = { ApprovedScopes.MovieApi.ToString() }
+                    Scopes = { ApprovedScopes.MovieApi.ToString() },
+                    UserClaims = { "role" }
                 },
                 new ApiResource("jobApi", "Movie Api")
                 {
