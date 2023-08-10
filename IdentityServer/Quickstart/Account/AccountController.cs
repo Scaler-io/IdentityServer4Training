@@ -4,6 +4,7 @@
 
 using IdentityModel;
 using IdentityServer.Entities;
+using IdentityServer.Quickstart.Account;
 using IdentityServer4;
 using IdentityServer4.Events;
 using IdentityServer4.Extensions;
@@ -349,6 +350,24 @@ namespace IdentityServerHost.Quickstart.UI
             }
 
             return vm;
+        }
+
+
+        /*******************************/
+        /* user registration process */
+        /*****************************/
+        [HttpGet]
+        public IActionResult Register([FromQuery] string returnUrl)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Register(RegistrationViewModel model, string returnUrl)
+        {
+            return View();
         }
     }
 }

@@ -1,0 +1,83 @@
+.register__container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #f4f4f4;
+  row-gap: 30px;
+}
+
+.form-heading{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    row-gap: 10px
+}
+
+.form-heading h2 {
+    font-size: 35px;
+}
+
+.form-heading p{
+   color: #888888;
+}
+
+.form-content {
+  width: 320px;
+  padding: 30px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #dddddd; /* Replace with your desired border color */
+  border-radius: 4px;
+  background-color: #ffffff; /* White background for input fields */
+}
+
+.form-control:focus {
+  outline: none;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2); /* Focus shadow for input fields */
+}
+
+.btn {
+    cursor: pointer;
+    font-size: 16px;
+    padding: 10px 20px;
+    border-radius: 4px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.btn-primary {
+    background-color: #007bff; /* Replace with your desired primary button color */
+    color: #ffffff; /* Replace with your desired button text color */
+    border: none;
+}
+
+.btn:hover {
+    opacity: 0.8; /* Button opacity on hover */
+}
+
+.cta-link {
+    font-size: 12px;
+    text-align: center;
+    color: #888888
+}
